@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.paulo.data.model.Pessoa;
 import br.com.paulo.excecao.RecursoNaoEncontrado;
-import br.com.paulo.model.Pessoa;
 import br.com.paulo.repositorio.PessoaRepositorio;
 
 @Service

@@ -13,42 +13,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.paulo.model.Pessoa;
+import br.com.paulo.data.vo.PessoaVO;
 import br.com.paulo.servicos.PessoaService;
 
+
 @RestController
-@RequestMapping("/pessoa")
+@RequestMapping("/Pessoa")
 public class PessoaController {
 	
 	@Autowired
 	private PessoaService peServices;
 	
 	@GetMapping
-	public List<Pessoa> pesquisaTodos()  {
+	public List<PessoaVO> pesquisaTodos()  {
 		
 		return peServices.pesquisaTodos();
 	}
 	
 	@GetMapping("/{id}")
-	public Pessoa pesquisaPorId(@PathVariable("id") Long id)  {
+	public PessoaVO pesquisaPorId(@PathVariable("id") Long id)  {
 		
 		return peServices.pesquisaPorID(id);
 	}
 	
 	@PostMapping
-	public Pessoa salvar(@RequestBody Pessoa pPessoa)  {
+	public PessoaVO salvar(@RequestBody PessoaVO pPessoaVO)  {
 		
-		return peServices.salvar(pPessoa);
+		return peServices.salvar(pPessoaVO);
 	}
 	
 	@PutMapping
-	public Pessoa alterar(@RequestBody Pessoa pPessoa)  {
+	public PessoaVO alterar(@RequestBody PessoaVO pPessoaVO)  {
 		
-		return peServices.alterar(pPessoa);
+		return peServices.alterar(pPessoaVO);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Pessoa> deletar(@PathVariable("id") Long id)  {
+	public ResponseEntity<PessoaVO> deletar(@PathVariable("id") Long id)  {
 		
 		 peServices.deletar(id);
 		 return ResponseEntity.ok().build();
