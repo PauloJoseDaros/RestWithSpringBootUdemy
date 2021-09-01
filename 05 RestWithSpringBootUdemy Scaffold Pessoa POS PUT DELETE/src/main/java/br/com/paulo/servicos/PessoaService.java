@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.paulo.conversor.DozerConverter;
+import br.com.paulo.conversor.custon.pessoaConversor.PessoaConversor;
 import br.com.paulo.data.model.Pessoa;
 import br.com.paulo.data.vo.PessoaVO;
+import br.com.paulo.data.vo.v2.PessoaVOV2;
 import br.com.paulo.excecao.RecursoNaoEncontrado;
 import br.com.paulo.repositorio.PessoaRepositorio;
 
@@ -21,6 +23,13 @@ public class PessoaService {
 		
 		var entidade = DozerConverter.parserObjeto(pPessoaVO, Pessoa.class);
 		var vo = DozerConverter.parserObjeto(repositorio.save(entidade), PessoaVO.class);
+		return vo;
+	}
+	
+	public PessoaVOV2 salvarV2(PessoaVOV2 pPessoaVOV2){
+		PessoaConversor conversor = new PessoaConversor();
+		var entidade = conversor.converterVOparaEntidade(pPessoaVOV2);
+		var vo = conversor.converterEntidadeParaVO(repositorio.save(entidade));
 		return vo;
 	}
 

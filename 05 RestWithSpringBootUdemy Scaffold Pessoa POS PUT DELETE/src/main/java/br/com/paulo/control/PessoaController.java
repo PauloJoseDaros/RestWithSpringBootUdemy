@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.paulo.data.vo.PessoaVO;
+import br.com.paulo.data.vo.v2.PessoaVOV2;
 import br.com.paulo.servicos.PessoaService;
 
 
 @RestController
-@RequestMapping("/Pessoa")
+@RequestMapping("/pessoa")
 public class PessoaController {
 	
 	@Autowired
@@ -26,7 +27,6 @@ public class PessoaController {
 	
 	@GetMapping
 	public List<PessoaVO> pesquisaTodos()  {
-		
 		return peServices.pesquisaTodos();
 	}
 	
@@ -40,6 +40,11 @@ public class PessoaController {
 	public PessoaVO salvar(@RequestBody PessoaVO pPessoaVO)  {
 		
 		return peServices.salvar(pPessoaVO);
+	}
+	@PostMapping("/v2")
+	public PessoaVOV2 salvarV2(@RequestBody PessoaVOV2 pPessoaVOV2)  {
+		
+		return peServices.salvarV2(pPessoaVOV2);
 	}
 	
 	@PutMapping
