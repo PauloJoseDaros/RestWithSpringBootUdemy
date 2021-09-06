@@ -16,7 +16,7 @@ public class PessoaVO implements Serializable{
 	@JsonProperty("ultimo_nome")
 	private String sobrenome;
 	private String endereco;
-	@JsonIgnore
+	//@JsonIgnore CUIDADO PARA SALVAR QUANDO CAMPO FOR OBRIGATORIO
 	private String genero;
 	public PessoaVO() {
 		super();

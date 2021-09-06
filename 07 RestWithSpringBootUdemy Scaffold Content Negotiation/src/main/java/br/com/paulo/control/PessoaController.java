@@ -24,24 +24,26 @@ public class PessoaController {
 	@Autowired
 	private PessoaService peServices;
 	
-	@GetMapping
+	@GetMapping(produces = {"application/json","application/xml","application/x-yaml"})
 	public List<PessoaVO> pesquisaTodos()  {
 		return peServices.pesquisaTodos();
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value = "/{id}", produces = {"application/json","application/xml","application/x-yaml"})
 	public PessoaVO pesquisaPorId(@PathVariable("id") Long id)  {
 		
 		return peServices.pesquisaPorID(id);
 	}
 	
-	@PostMapping
+	@PostMapping(produces = {"application/json","application/xml","application/x-yaml"},
+			consumes = {"application/json","application/xml","application/x-yaml"})
 	public PessoaVO salvar(@RequestBody PessoaVO pPessoaVO)  {
 		
 		return peServices.salvar(pPessoaVO);
 	}
 	
-	@PutMapping
+	@PutMapping(produces = {"application/json","application/xml","application/x-yaml"},
+			consumes = {"application/json","application/xml","application/x-yaml"})
 	public PessoaVO alterar(@RequestBody PessoaVO pPessoaVO)  {
 		
 		return peServices.alterar(pPessoaVO);
