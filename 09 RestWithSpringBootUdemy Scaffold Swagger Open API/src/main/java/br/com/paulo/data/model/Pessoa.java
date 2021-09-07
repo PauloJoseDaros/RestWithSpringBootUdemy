@@ -1,37 +1,39 @@
-package br.com.paulo.data.vo.v1;
+package br.com.paulo.data.model;
 
 import java.io.Serializable;
 
-import org.springframework.hateoas.ResourceSupport;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.github.dozermapper.core.Mapping;
-
-@JsonPropertyOrder({"id","genero","sobrenome","nome","endereco"})
-public class PessoaVO extends ResourceSupport implements Serializable{
+@Entity
+@Table(name="pessoa")
+public class Pessoa implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	@JsonProperty("id")
-	@Mapping("idPessoa") /* mapear para dozer na conversao para pessoa model caso precise usar outro nome de ID*/
-	private Long key;
-	@JsonProperty("primeiro_nome")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idPessoa;
+	@Column(name = "nome", nullable = false, length = 80)
 	private String nome;
-	@JsonProperty("ultimo_nome")
+	@Column(name = "sobrenome", nullable = false, length = 80)
 	private String sobrenome;
+	@Column(name = "endereco", nullable = false, length = 100)
 	private String endereco;
-	//@JsonIgnore CUIDADO PARA SALVAR QUANDO CAMPO FOR OBRIGATORIO
+	@Column(name = "genero", nullable = false, length = 10)
 	private String genero;
-	public PessoaVO() {
+	public Pessoa() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Long getKey() {
-		return key;
+	public Long getIdPessoa() {
+		return idPessoa;
 	}
-	public void setKey(Long key) {
-		this.key = key;
+	public void setIdPessoa(Long idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 	public String getNome() {
 		return nome;
@@ -60,10 +62,10 @@ public class PessoaVO extends ResourceSupport implements Serializable{
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
 		result = prime * result + ((genero == null) ? 0 : genero.hashCode());
-		result = prime * result + ((key == null) ? 0 : key.hashCode());
+		result = prime * result + ((idPessoa == null) ? 0 : idPessoa.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((sobrenome == null) ? 0 : sobrenome.hashCode());
 		return result;
@@ -72,11 +74,11 @@ public class PessoaVO extends ResourceSupport implements Serializable{
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PessoaVO other = (PessoaVO) obj;
+		Pessoa other = (Pessoa) obj;
 		if (endereco == null) {
 			if (other.endereco != null)
 				return false;
@@ -87,10 +89,10 @@ public class PessoaVO extends ResourceSupport implements Serializable{
 				return false;
 		} else if (!genero.equals(other.genero))
 			return false;
-		if (key == null) {
-			if (other.key != null)
+		if (idPessoa == null) {
+			if (other.idPessoa != null)
 				return false;
-		} else if (!key.equals(other.key))
+		} else if (!idPessoa.equals(other.idPessoa))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)
