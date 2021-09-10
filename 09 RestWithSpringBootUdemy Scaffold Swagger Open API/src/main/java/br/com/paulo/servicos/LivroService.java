@@ -33,7 +33,7 @@ public class LivroService {
 		entidade.setTitulo(pLivroVO.getTitulo());
 		var vo = DozerConverter.parserObjeto(entidade, LivroVO.class);
 		
-		return vo; 
+		return vo;
 	}
 
 	public void deletar(Long id) {

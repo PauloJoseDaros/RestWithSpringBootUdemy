@@ -36,8 +36,8 @@ public class Livro implements Serializable{
 	public Long getIdLivro() {
 		return id;
 	}
-	public void setIdLivro(Long idLivro) {
-		this.id = idLivro;
+	public void setIdLivro(Long id) {
+		this.id = id;
 	}
 	public String getAutor() {
 		return autor;
