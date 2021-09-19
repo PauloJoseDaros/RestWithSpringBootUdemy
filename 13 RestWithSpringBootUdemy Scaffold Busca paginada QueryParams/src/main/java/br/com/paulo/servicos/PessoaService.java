@@ -3,6 +3,7 @@ package br.com.paulo.servicos;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,8 +62,11 @@ public class PessoaService {
 		return DozerConverter.parserObjeto(entidade, PessoaVO.class);
 	}
 
-	public List<PessoaVO> pesquisaTodos() {
-		return DozerConverter.parserListaObjeto(repositorio.findAll(), PessoaVO.class);
+	public List<PessoaVO> pesquisaTodos(Pageable pageable) {
+		
+		var entities = repositorio.findAll(pageable).getContent();
+		
+		return DozerConverter.parserListaObjeto(entities, PessoaVO.class);
 	}
 
 }
