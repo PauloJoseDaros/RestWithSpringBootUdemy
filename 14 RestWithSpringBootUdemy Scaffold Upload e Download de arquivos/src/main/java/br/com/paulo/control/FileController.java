@@ -1,5 +1,9 @@
 package br.com.paulo.control;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +30,14 @@ public class FileController {
 		
 		String nomeArquivo = fileStorageService.storeFile(file);
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().
-				path("/api/arquivo/v1/downloadFile").
-				path(nomeArquivo).toString();
+				path("/api/arquivo/v1/downloadFile/").
+				path(nomeArquivo).toUriString();
 		return new UploadFileResponseVO(nomeArquivo, fileDownloadUri,file.getContentType(),file.getSize());
+	}
+	
+	@PostMapping("/uploadMultiplosArquivos")
+	public List<UploadFileResponseVO>	uploadMultiplosArquivos(@RequestParam("files") MultipartFile[] files) {
+		return Arrays.asList(files).stream().map(file -> uploadFile(file)).collect(Collectors.toList());
 	}
 
 }

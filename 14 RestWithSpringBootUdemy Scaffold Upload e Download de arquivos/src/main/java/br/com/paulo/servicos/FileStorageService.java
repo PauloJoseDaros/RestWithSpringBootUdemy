@@ -6,12 +6,15 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.paulo.config.FileStorageConfig;
 import br.com.paulo.excecao.FileStorageExecao;
+import br.com.paulo.excecao.MeuArquivoNaoEncontradoExcecao;
 
 @Service
 public class FileStorageService {
@@ -47,5 +50,18 @@ public class FileStorageService {
 		}
 	}
 	
+	public Resource loadFileAsResource(String nomeArquivo) {
+		try {
+			Path filePath = this.fileStorageLocation.resolve(nomeArquivo).normalize();
+			Resource resource = new UrlResource(filePath.toUri());
+			if(resource.exists()) {
+				return resource;
+			}else {
+				throw new MeuArquivoNaoEncontradoExcecao("Arquivo nao existe "+nomeArquivo);
+			}
+		} catch (Exception e) {
+			throw new MeuArquivoNaoEncontradoExcecao("Arquivo nao existe "+nomeArquivo,e);
+		}
+	}
 
 }
